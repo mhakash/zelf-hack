@@ -5,3 +5,5 @@ db/dump.sql
 .idea
 reset.zsh
 src/script.py
+__pycache__
+.DS_Store

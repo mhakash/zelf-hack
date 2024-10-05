@@ -1,19 +1,19 @@
 from rest_framework import serializers
 
-from contents.models import Content, Author
+from contents.models import Author, Content
 
 
 # For Reading the data from the DB
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = '__all__'
+        exclude = ["big_metadata", "secret_value"]
 
 
 class ContentBaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Content
-        fields = '__all__'
+        exclude = ["big_metadata", "secret_value"]
 
 
 class ContentSerializer(serializers.Serializer):
@@ -29,6 +29,7 @@ class StatCountSerializer(serializers.Serializer):
     `views`    : Content -> view_count
     `shares`   : Content -> share_count
     """
+
     likes = serializers.IntegerField()
     comments = serializers.IntegerField()
     views = serializers.IntegerField()
@@ -45,6 +46,7 @@ class AuthorPostSerializer(serializers.Serializer):
     big_metadata       : Author -> big_metadata
     secret_value       : Author -> secret_value
     """
+
     unique_name = serializers.CharField()  # Unique name is username
     full_name = serializers.CharField()  # Full name is name
     unique_external_id = serializers.CharField()  # Unique id
